@@ -10,7 +10,8 @@
 
 #include <stdio.h>
 
-class Ball {
+class Ball
+{
     private:
         float x;
         float y;

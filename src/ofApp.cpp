@@ -6,131 +6,203 @@
 
 //using namespace std;
 
-
-
-Ball ball = *new Ball(100, 100, 50);
-
 //--------------------------------------------------------------
-void ofApp::setup(){
+void ofApp::setup()
+{
     picture.load("image1.jpg");
     
     ofSetWindowShape(1000,1000);
     ofBackground(0);
+
+    ball= new Ball(100, 100, 50);
     
-//    imageName.load("/Users/joshbarton/Desktop/of_v0.10.1_osx_release/apps/myApps/mySketch/src/images image1.jpg")
- 
-    
+    jumps = 0;
+}
+
+//--------------------------------------------------------------
+void ofApp::update()
+{
     
 }
 
 //--------------------------------------------------------------
-void ofApp::update(){
-    
-}
-
-//--------------------------------------------------------------
-void ofApp::draw(){
-    
-    
-    
-
-    cout << ball.getX() << ", " << ball.getY() << endl;
-    if (sqrt(pow(ball.getX() - playerPos.x, 2) + pow(ball.getY() - playerPos.y, 2)) <= ball.getR() + 50)
-        
-        { 
+void ofApp::draw()
+{
+    cout <<
+    ball->getX() << ", " << ball->getY() << endl;
+    if (sqrt(pow(ball->getX() - playerPos.x, 2) + pow(ball->getY() - playerPos.y, 2)) <= ball->getR() + 50)
+    {
     ofDrawBitmapStringHighlight("COLLISION", 500, 500);
-            
-            
-        }
+    }
+    
+    playerPos += dir;
+    
+    platformPos.y += 1.5;
+    platform2Pos.y += 1.5;
+    platform3Pos.y += 1.5;
+    platform4Pos.y += 1.5;
+    
+    dir += gravity;
+    
+    ball->Draw();
    
-    
- 
- 
-        ball.Draw();
-    
-
-    
-    
     ofDrawBitmapStringHighlight("W A S D TO MOVE", 20, 20);
     ofSetColor(255,255,255);
-    ofDrawCircle(playerPos.x, playerPos.y, 50);
-   
+    ofDrawCircle(playerPos.x, playerPos.y, 20);
+    ofDrawRectangle(platformPos.x, platformPos.y,100, 25);
+    ofDrawRectangle(platform2Pos.x, platform2Pos.y,100, 25);
+    ofDrawRectangle(platform3Pos.x, platform3Pos.y,100, 25);
+    ofDrawRectangle(platform4Pos.x, platform4Pos.y,100, 25);
     
-    if (up) {
-        playerPos.y-=4;
+    if (playerPos.x > platformPos.x  &&
+        playerPos.x <  platformPos.x + 100  &&
+        playerPos.y <  platformPos.y + 25 &&
+        playerPos.y >  platformPos.y )
+    {
+        playerPos.y = platformPos.y;
+        jumps = 0;
     }
-    if (down) {
+    
+    if (playerPos.x > platform2Pos.x  &&
+        playerPos.x <  platform2Pos.x + 100  &&
+        playerPos.y <  platform2Pos.y + 25 &&
+        playerPos.y >  platform2Pos.y )
+    {
+        playerPos.y = platform2Pos.y;
+        jumps = 0;
+    }
+    
+    if (playerPos.x > platform3Pos.x  &&
+        playerPos.x <  platform3Pos.x + 100  &&
+        playerPos.y <  platform3Pos.y + 25 &&
+        playerPos.y >  platform3Pos.y )
+    {
+        playerPos.y = platform3Pos.y;
+        jumps = 0;
+    }
+    
+    if (playerPos.x > platform4Pos.x  &&
+        playerPos.x <  platform4Pos.x + 100  &&
+        playerPos.y <  platform4Pos.y + 25 &&
+        playerPos.y >  platform4Pos.y )
+    {
+        playerPos.y = platform4Pos.y;
+        jumps = 0;
+    }
+    
+    if(platformPos.y > 1000)
+    {
+        platformPos.y = -50;
+    }
+    
+    if(platform2Pos.y > 1000)
+    {
+        platform2Pos.y = -50;
+    }
+    
+    if(platform3Pos.y > 1000)
+    {
+        platform3Pos.y = -50;
+    }
+    
+    if(platform4Pos.y > 1000)
+    {
+        platform4Pos.y = -50;
+    }
+    
+    
+    if(jumps > 3)
+    {
+        jump = false;
+    }
+    
+    if(dir.y > 5 )
+    {
+        dir.y = 5;
+    }
+    
+    if(isJumping == false) {
+        
+    if (jump == true)
+    {
+        dir.y =-12.5;
+        isJumping = true;
+    }
+        
+}
+  
+    if (down)
+    {
         playerPos.y+=4;
     }
-    if (left) {
+    
+    if (left)
+    {
         playerPos.x-=4;
     }
-    if (right) {
+    
+    if (right)
+    {
         playerPos.x+=4;
     }
-    
-   
- 
- 
 }
 
 //--------------------------------------------------------------
 
-void ofApp::keyPressed(int key){
+void ofApp::keyPressed(int key)
+{
     
-    if (key == 'd') {
+    if (key == 'd')
+    {
         playerPos.x+=4;
         right = true;
     }
     
-    
-    if (key == 'a') {
+    if (key == 'a')
+    {
         playerPos.x-=4;
         left = true;
     }
-    if (key == 's') {
+    if (key == 's')
+    {
         playerPos.y+=4;
         down = true;
     }
-    
-    
-    if (key == 'w') {
-        playerPos.y-=4;
-        up = true;
+  
+    if (key == 'w')
+    {
+        jump = true;
     }
-    
-    
-    
 }
-
-
 
 //--------------------------------------------------------------
 
 void ofApp::keyReleased(int key){
     
-    if (key == 'd') {
+    if (key == 'd')
+    {
         playerPos.x+=4;
         right = false;
     }
     
-    
-    if (key == 'a') {
+    if (key == 'a')
+    {
         playerPos.x-=4;
         left = false;
     }
-    if (key == 's') {
+    if (key == 's')
+    {
         playerPos.y+=4;
         down = false;
     }
     
-    
-    if (key == 'w') {
-        playerPos.y-=4;
-        up = false;
+    if (key == 'w')
+    {
+        jump = false;
+        jumps += 1;
+        isJumping = false;
     }
 }
-
 
 //--------------------------------------------------------------
 void ofApp::mouseMoved(int x, int y ){

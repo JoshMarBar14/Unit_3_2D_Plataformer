@@ -3,7 +3,8 @@
 #include "ofMain.h"
 #include "Ball.hpp"
 
-class ofApp : public ofBaseApp{
+class ofApp : public ofBaseApp
+{
     
 public:
     //functions
@@ -26,20 +27,34 @@ public:
     //data
     ofImage picture;
     
-    bool left, right, up, down = false;
-   
+    bool left, right, down = false;
+    bool jump = false;
+    bool isJumping = false;
+    
     float circleX = 200;
     float circleY = 200;
     float circleR = 200;
-    
-    float dist;
     
     float playerX = 200;
     float playerY = 200;
     float playerR = 200;
     
-
+    float dist;
+    
+    int score;
+    int jumps;
+   
     ofVec2f playerPos = ofVec2f(0, 400);
+    ofVec2f dir = ofVec2f(0,0);
+    ofVec2f gravity = ofVec2f(0, 0.6);
+    ofVec2f platformPos = ofVec2f(400,500);
+    ofVec2f platform2Pos = ofVec2f(250,250);
+    ofVec2f platform3Pos = ofVec2f(600,550);
+    ofVec2f platform4Pos = ofVec2f(700,700);
+    
+    Ball* ball;
+    
+    
     
     //Initializing Array
     //Declaring Array

@@ -8,7 +8,8 @@
 #include "Ball.hpp"
 #include "ofGraphics.h"
 
-Ball::Ball(float _x, float _y, float _r) {
+Ball::Ball(float _x, float _y, float _r)
+{
     x = _x;
     y = _y;
     r = _r;
@@ -16,40 +17,32 @@ Ball::Ball(float _x, float _y, float _r) {
 
 
 
-void Ball::Draw(){
+void Ball::Draw()
+{
     
-        ofDrawCircle( x,y,r);
-    
+    ofDrawCircle( x,y,r);
         x +=10;
     
     if ( x > 1000 ){
-        
         x = -800;
-        
-    
-        
-        
     }
-    
-    
-    
 }
 
-
-
-float Ball::getX(){
+float Ball::getX()
+{
     return x;
     
 }
 
-
-float Ball::getY(){
+float Ball::getY()
+{
     return y;
     
 }
 
 
-float Ball::getR(){
+float Ball::getR()
+{
     return r;
     
 }
