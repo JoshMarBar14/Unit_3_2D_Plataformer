@@ -1,3 +1,3 @@
-# Unit_3_2D_Plataformer
+# Unit_3_2D_Platformer
 2d platformer
 
