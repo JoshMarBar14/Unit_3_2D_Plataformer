@@ -30,6 +30,7 @@ public:
     bool left, right, down = false;
     bool jump = false;
     bool isJumping = false;
+    bool isDead = false;
     
     float circleX = 200;
     float circleY = 200;
@@ -43,10 +44,11 @@ public:
     
     int score;
     int jumps;
+    
    
     ofVec2f playerPos = ofVec2f(0, 400);
     ofVec2f dir = ofVec2f(0,0);
-    ofVec2f gravity = ofVec2f(0, 0.6);
+    ofVec2f gravity = ofVec2f(0, 0.7);
     ofVec2f platformPos = ofVec2f(400,500);
     ofVec2f platform2Pos = ofVec2f(250,250);
     ofVec2f platform3Pos = ofVec2f(600,550);

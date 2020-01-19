@@ -19,12 +19,13 @@ Ball::Ball(float _x, float _y, float _r)
 
 void Ball::Draw()
 {
-    
+    ofSetColor(166, 62, 240);
     ofDrawCircle( x,y,r);
-        x +=10;
+        x +=7;
     
     if ( x > 1000 ){
-        x = -800;
+        x = -200;
+        y = 500;
     }
 }
 

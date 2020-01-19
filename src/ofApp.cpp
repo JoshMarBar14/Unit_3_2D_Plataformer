@@ -14,7 +14,7 @@ void ofApp::setup()
     ofSetWindowShape(1000,1000);
     ofBackground(0);
 
-    ball= new Ball(100, 100, 50);
+    ball= new Ball(100, 100, 30);
     
     jumps = 0;
 }
@@ -32,28 +32,32 @@ void ofApp::draw()
     ball->getX() << ", " << ball->getY() << endl;
     if (sqrt(pow(ball->getX() - playerPos.x, 2) + pow(ball->getY() - playerPos.y, 2)) <= ball->getR() + 50)
     {
-    ofDrawBitmapStringHighlight("COLLISION", 500, 500);
+        isDead = true;
+        playerPos.y = -10000000;
     }
     
     playerPos += dir;
     
-    platformPos.y += 1.5;
-    platform2Pos.y += 1.5;
-    platform3Pos.y += 1.5;
-    platform4Pos.y += 1.5;
+    platformPos.y += 2.2;
+    platform2Pos.y += 2.2;
+    platform3Pos.y += 2.2;
+    platform4Pos.y += 2.2;
     
     dir += gravity;
     
     ball->Draw();
    
-    ofDrawBitmapStringHighlight("W A S D TO MOVE", 20, 20);
-    ofSetColor(255,255,255);
+    ofDrawBitmapStringHighlight("W TO JUMP A S D TO MOVE AND WHATEVER YOU DO DONT TOUCH THE LAVA", 20, 20);
+    ofSetColor(255,0,0);
     ofDrawCircle(playerPos.x, playerPos.y, 20);
+    ofSetColor(92,224,169);
     ofDrawRectangle(platformPos.x, platformPos.y,100, 25);
     ofDrawRectangle(platform2Pos.x, platform2Pos.y,100, 25);
     ofDrawRectangle(platform3Pos.x, platform3Pos.y,100, 25);
     ofDrawRectangle(platform4Pos.x, platform4Pos.y,100, 25);
-    
+    ofSetColor(255, 98, 0);
+    ofDrawRectangle(0,780,1000, 30);
+      ofSetColor(255,255,255);
     if (playerPos.x > platformPos.x  &&
         playerPos.x <  platformPos.x + 100  &&
         playerPos.y <  platformPos.y + 25 &&
@@ -88,6 +92,17 @@ void ofApp::draw()
     {
         playerPos.y = platform4Pos.y;
         jumps = 0;
+    }
+    
+    if(playerPos.y > 1050)
+    {
+        isDead = true;
+       
+    }
+    
+    if(isDead == true)
+    {
+        ofDrawBitmapStringHighlight("YOU ARE DEAD PRESS R TO RESTART",300,350);
     }
     
     if(platformPos.y > 1000)
@@ -201,6 +216,19 @@ void ofApp::keyReleased(int key){
         jump = false;
         jumps += 1;
         isJumping = false;
+    }
+    
+    if (isDead == true)
+    {
+        
+    if (key == 'r')
+        
+    {
+        playerPos.y = 500;
+        isDead = false;
+        jumps = 0;
+    }
+    
     }
 }
 
